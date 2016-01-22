@@ -85,8 +85,8 @@
 #include "board-mx6dl_sabresd.h"
 
 #define SABRESD_USR_DEF_GRN_LED	IMX_GPIO_NR(1, 1)
-#define SABRESD_USR_DEF_RED_LED	IMX_GPIO_NR(1, 2)
-#define SABRESD_VOLUME_UP	IMX_GPIO_NR(1, 4)
+//!MM #define SABRESD_USR_DEF_RED_LED	IMX_GPIO_NR(1, 2)
+//!MM #define SABRESD_VOLUME_UP	IMX_GPIO_NR(1, 4)
 #define SABRESD_VOLUME_DN	IMX_GPIO_NR(1, 5)
 #define SABRESD_MICROPHONE_DET	IMX_GPIO_NR(1, 9)
 #define SABRESD_CSI0_PWN	IMX_GPIO_NR(1, 16)
@@ -102,8 +102,8 @@
 
 #define SABRESD_SD3_CD		IMX_GPIO_NR(7, 8)
 #define SABRESD_SD3_WP		IMX_GPIO_NR(6, 16)
-#define SABRESD_SD2_CD		IMX_GPIO_NR(2, 2)
-#define SABRESD_SD2_WP		IMX_GPIO_NR(2, 3)
+#define SABRESD_SD2_CD		IMX_GPIO_NR(1, 4)
+#define SABRESD_SD2_WP		IMX_GPIO_NR(1, 2)
 #define SABRESD_CHARGE_DOK_B	IMX_GPIO_NR(2, 24)
 #define SABRESD_GPS_RESET	IMX_GPIO_NR(2, 28)
 #define SABRESD_SENSOR_EN	IMX_GPIO_NR(2, 31)
@@ -116,12 +116,10 @@
 #define SABRESD_BAR0_INT	IMX_GPIO_NR(3, 15)
 #define SABRESD_eCOMPASS_INT	IMX_GPIO_NR(3, 16)
 #define SABRESD_GPS_PPS		IMX_GPIO_NR(3, 18)
-#define SABRESD_PCIE_PWR_EN	IMX_GPIO_NR(3, 19)
-#define SABRESD_USB_OTG_PWR	IMX_GPIO_NR(4, 15)
-#define SABRESD_USB_H1_PWR	IMX_GPIO_NR(1, 4)
+#define SABRESD_PCIE_PWR_EN	IMX_GPIO_NR(7, 12)
+#define SABRESD_USB_OTG_PWR	IMX_GPIO_NR(6, 16)
+#define SABRESD_USB_H1_PWR	IMX_GPIO_NR(7, 8)
 #define SABRESD_CHARGE_CHG_1_B	IMX_GPIO_NR(3, 23)
-//!mm #define SABRESD_TS_INT		IMX_GPIO_NR(3, 26)
-//!mm iMX6Rex touschreen interrupt TSC2007
 #define SABRESD_TS_INT		IMX_GPIO_NR(6, 9)
 #define SABRESD_DISP0_RD	IMX_GPIO_NR(3, 28)
 #define SABRESD_POWER_OFF	IMX_GPIO_NR(3, 29)
@@ -135,7 +133,7 @@
 
 #define SABRESD_DI0_D0_CS	IMX_GPIO_NR(5, 0)
 #define SABRESD_CHARGE_FLT_1_B	IMX_GPIO_NR(5, 2)
-#define SABRESD_PCIE_WAKE_B	IMX_GPIO_NR(7, 12)
+#define SABRESD_PCIE_WAKE_B	IMX_GPIO_NR(5, 20)
 
 #define SABRESD_CAP_TCH_INT1	IMX_GPIO_NR(6, 7)
 #define SABRESD_CAP_TCH_INT0	IMX_GPIO_NR(6, 8)
@@ -151,8 +149,8 @@
 #define SABRESD_DI1_D0_CS	IMX_GPIO_NR(6, 31)
 
 #define SABRESD_HEADPHONE_DET	IMX_GPIO_NR(7, 8)
-#define SABRESD_PCIE_RST_B_REVB	IMX_GPIO_NR(7, 12)
-#define SABRESD_PMIC_INT_B	IMX_GPIO_NR(7, 13)
+#define SABRESD_PCIE_RST_B_REVB	IMX_GPIO_NR(4, 15)
+#define SABRESD_PMIC_INT_B	IMX_GPIO_NR(5, 6)
 #define SABRESD_PFUZE_INT	IMX_GPIO_NR(7, 13)
 
 #define SABRESD_EPDC_SDDO_0	IMX_GPIO_NR(2, 22)
@@ -334,7 +332,7 @@ static struct fec_platform_data fec_data __initdata = {
 
 static int mx6q_sabresd_spi_cs[] = {
 	//!mm changed to SPI3 CS2
-	SABRESD_ECSPI1_CS0,
+	SABRESD_ECSPI3_CS2,
 };
 
 static const struct spi_imx_master mx6q_sabresd_spi_data __initconst = {
@@ -974,10 +972,6 @@ static struct tsc2007_platform_data tsc2007_info = {
 };
 
 static struct i2c_board_info mxc_i2c0_board_info[] __initdata = {
-	{
-		//!mm I2C_BOARD_INFO("wm89**", 0x1a),
-		I2C_BOARD_INFO("sgtl5000", 0x0a),
-	},
 /*
 	{
 		I2C_BOARD_INFO("ov564x", 0x3c),
@@ -991,6 +985,10 @@ static struct i2c_board_info mxc_i2c0_board_info[] __initdata = {
 };
 
 static struct i2c_board_info mxc_i2c1_board_info[] __initdata = {
+	{
+		//!mm I2C_BOARD_INFO("wm89**", 0x1a),
+		I2C_BOARD_INFO("sgtl5000", 0x0a),
+	},
 	{
 		I2C_BOARD_INFO("mxc_hdmi_i2c", 0x50),
 	},
@@ -2272,7 +2270,7 @@ static void __init mx6q_sabresd_reserve(void)
 /*
  * initialize __mach_desc_MX6Q_SABRESD data structure.
  */
-MACHINE_START(MX6Q_SABRESD, "Freescale i.MX 6Quad/Dual Tiny Board")
+MACHINE_START(MX6Q_SABRESD, "Freescale i.MX 6Quad/Dual OpenRex Board")
 	/* Maintainer: Freescale Semiconductor, Inc. */
 	.boot_params = MX6_PHYS_OFFSET + 0x100,
 	.fixup = fixup_mxc_board,
