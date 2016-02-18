@@ -990,6 +990,9 @@ static struct i2c_board_info mxc_i2c1_board_info[] __initdata = {
 		I2C_BOARD_INFO("sgtl5000", 0x0a),
 	},
 	{
+		I2C_BOARD_INFO("sht21", 0x40),
+	},
+	{
 		I2C_BOARD_INFO("mxc_hdmi_i2c", 0x50),
 	},
 /*
