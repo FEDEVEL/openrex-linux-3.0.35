@@ -12,3 +12,4 @@ obj-$(CONFIG_LIRC_SERIAL)	+= lirc_serial.o
 obj-$(CONFIG_LIRC_SIR)		+= lirc_sir.o
 obj-$(CONFIG_LIRC_TTUSBIR)	+= lirc_ttusbir.o
 obj-$(CONFIG_LIRC_ZILOG)	+= lirc_zilog.o
+obj-$(CONFIG_LIRC_OPENREX)	+= lirc_openrex.o

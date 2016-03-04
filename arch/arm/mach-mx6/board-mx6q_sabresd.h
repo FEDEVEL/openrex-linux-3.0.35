@@ -165,6 +165,9 @@ static iomux_v3_cfg_t mx6q_sabresd_pads[] = {
 	// USER LED
 	MX6Q_PAD_SD1_DAT2__GPIO_1_19,
 
+	// IR RECEIVER
+	MX6Q_PAD_SD4_DAT3__GPIO_2_11,
+
 
 };
 
